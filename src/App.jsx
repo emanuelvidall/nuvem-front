@@ -4,6 +4,9 @@ import Modal from './components/Modal/index.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 
 function App() {
 
@@ -17,7 +20,7 @@ function App() {
     });
     const data = await response.json();
     console.log(data);
-    alert(id, 'item deleted!')
+    toast.success('Item deletado!');
     setLista((prevLista) => prevLista.filter((item) => item.id !== id));
   }
 
@@ -44,7 +47,7 @@ function App() {
     <>
       <Modal modalOpen={modalOpen} handleModalOpen={handleModalOpen} getData={getData} />
       <div className='bg-slate-500 h-screen w-screen items-center justify-center flex flex-col'>
-        <h1 className='font-bold text-white text-3xl mb-4'>Lista App v1.0 🚀 <button className='ml-56' onClick={handleModalOpen}><FontAwesomeIcon icon={faSquarePlus} color='#66fc03' /></button></h1>
+        <h1 className='font-bold text-white text-3xl mb-4 w-[600px] justify-between flex flex-row'>Lista App v1.0 🚀 <button className='' onClick={handleModalOpen}><FontAwesomeIcon icon={faSquarePlus} color='#66fc03' /></button></h1>
         <div className='bg-white w-[600px] h-4/6 rounded-md border border-slate-100 drop-shadow-md flex flex-col items-center'>
           <div className='flex flex-col items-center justify-center'>
             <h1 className='text-center font-bold text-2xl mb-2'>Estoque</h1>
@@ -59,6 +62,7 @@ function App() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   )
 }

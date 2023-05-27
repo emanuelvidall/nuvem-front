@@ -15,7 +15,7 @@ export default function List({ loading, lista, handleDelete }) {
                             <p className="mr-12 ml-2 font-bold">{item.id}</p>
                             <div className='text-left justify-left align-left w-[150px] absolute left-10'><p>{item.descricao}</p></div>
                             <p className='text-right absolute right-10'>R$ {item.preco.toFixed(2)}</p>
-                            <button className='mr-2' onClick={() => handleDelete(item.id)}><FontAwesomeIcon icon={faCircleXmark} /></button>
+                            <button className='mr-2' onClick={() => handleDelete(item.id)}><FontAwesomeIcon icon={faCircleXmark} color='#fc0303' /></button>
                         </div>
                     )
                 })}
