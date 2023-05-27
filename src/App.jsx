@@ -33,11 +33,14 @@ function App() {
 
   useEffect(() => {
     getData()
+    if (modalOpen){
+      handleModalOpen();
+    }
   }, [])
 
   return (
     <>
-    <Modal modalOpen={modalOpen} handleModalOpen={handleModalOpen}/>
+    <Modal modalOpen={modalOpen} handleModalOpen={handleModalOpen} getData={getData}/>
       <div className='bg-slate-500 h-screen w-screen items-center justify-center flex flex-col'>
         <h1 className='font-bold text-white text-3xl mb-4'>Lista App v1.0 🚀 <button className='ml-56' onClick={handleModalOpen}>+</button></h1>
         <div className='bg-white w-2/6 h-4/6 rounded-md border border-slate-100 drop-shadow-md flex flex-col items-center'>
