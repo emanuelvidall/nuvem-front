@@ -14,28 +14,35 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
         setPreco(e.target.value)
     }
 
-    const body = {descricao, preco}
-
     function handleAddProduct() {
         const body = {
-            descricao: descricao,
-            preco: preco
-          };
-        const response = fetch("http://localhost:3000/produtos/add", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'no-cors',
-            body: JSON.stringify(body),
+          descricao: descricao,
+          preco: preco
+        };
+
+       
+      
+        fetch("http://localhost:3000/produtos/add", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body),
         })
-            .catch((error) => {
-                console.log(error);
-            });
-        alert('Produto adicionado com sucesso!')
-        getData();
-        handleModalOpen();
-    }
+          .then(response => {
+            if (response.ok) {
+            alert(JSON.stringify(body))
+            //   alert('Produto adicionado com sucesso!');
+              getData();
+              handleModalOpen();
+            } else {
+              throw new Error('Error ao adicionar produto');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
 
     return (
         <>
