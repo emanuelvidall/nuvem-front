@@ -11,7 +11,7 @@ export default function List({ loading, lista, handleDelete }) {
             ) : (<div>
                 {lista.map((item, index) => {
                     return (
-                        <div key={item.id} className="bg-blue-200 w-[390px] flex flex-row justify-between h-[50px] ml-px rounded-md items-center mb-4 mt-4 animate__animated animate__fadeInUp">
+                        <div key={item.id} className="bg-white border border-slate-200 w-[390px] flex flex-row justify-between h-[50px] ml-px rounded-md items-center mb-4 mt-4 animate__animated animate__fadeInUp cursor-pointer hover:drop-shadow-md">
                             <p className="mr-12 ml-2 font-bold">{item.id}</p>
                             <div className='text-left justify-left align-left w-[150px] absolute left-10'><p>{item.descricao}</p></div>
                             <p className='text-right absolute right-10'>R$ {item.preco.toFixed(2)}</p>

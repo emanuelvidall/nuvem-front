@@ -69,11 +69,12 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
         <>
             {modalOpen &&
                 <div className=' absolute top-0 left-0 items-center justify-center w-screen h-screen flex flex-col z-10 backdrop-blur-md'>
-                    <div className='middleContainer w-[200px] h-[200px] rounded-md p-4 bg-white animate__animated animate__fadeInUp'>
+                    <div className='middleContainer w-[200px] h-[300px] rounded-md p-4 bg-neutral-100 drop-shadow-xl animate__animated animate__fadeInUp'>
                         <div className='flex flex-col items-center justify-center'>
-                            <h1 className='font-bold text-black text-md mb-4 '>Add a Lista <span className=''>📥</span> <button className='ml-10' onClick={handleModalOpen}><FontAwesomeIcon icon={faCircleXmark} color='#fc0303' /></button></h1>
-                            <input onChange={handleDescricaoChange} placeholder='descricao' className='border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
-                            <input onChange={handlePrecoChange} placeholder='preco' className='mt-2 border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
+                            <div className='w-full flex flex-row mb-2'><button className='self-end ml-auto' onClick={handleModalOpen}><FontAwesomeIcon icon={faCircleXmark} color='#fc0303' size='xl' /></button></div>
+                            <h1 className='font-bold text-black text-md mb-4 w-full flex flex-col items-center justify-center'>Adicionar Produto <span className='text-3xl'>📥</span> </h1>
+                            <input onChange={handleDescricaoChange} placeholder='Descricao' className='border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
+                            <input onChange={handlePrecoChange} placeholder='Preco R$' className='mt-2 border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
                             <button onClick={handleAddProduct} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>ADICIONAR</button>
 
                         </div>
