@@ -4,7 +4,7 @@ export default function List({loading, lista, handleDelete}) {
 
     return (        
         <>
-            <div className="flex flex-col bg-green-500 items-center align-center justify-center w-full">
+            <div className="flex flex-col bg-green-500 items-center align-center justify-center w-full z-0">
                 {loading ? ( 
                     <h1>Carregando dados...</h1>
                 ):(<div>
