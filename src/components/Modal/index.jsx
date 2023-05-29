@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 export default function Modal({ modalOpen, handleModalOpen, getData }) {
 
@@ -13,7 +14,7 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
     const handleDescricaoChange = (e) => {
         const value = e.target.value;
         const regex = /^[a-zA-Z\s]*$/;
-        
+
         if (value.length > 13) {
             toast.warn('Descrição deve ter no máximo 13 caracteres');
             e.target.value = '';
@@ -23,7 +24,7 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
         } else {
             setDescricao(value);
         }
-    };    
+    };
 
     const handlePrecoChange = (e) => {
         const value = e.target.value;
@@ -33,7 +34,7 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
         } else {
             setPreco(value);
         }
-    };    
+    };
 
     function handleAddProduct() {
         const body = {
@@ -52,8 +53,11 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
         })
             .then(response => {
                 if (response.ok) {
-                    alert(JSON.stringify(body))
-                    //   alert('Produto adicionado com sucesso!');
+                    Swal.fire({
+                        title: 'Produto adicionado com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                      })
                     getData();
                     handleModalOpen();
                 } else {

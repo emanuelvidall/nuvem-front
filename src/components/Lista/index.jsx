@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-export default function List({ loading, lista, handleDelete, modalEditOpen, handleModalEditOpen, handleEditProduct }) {
+export default function List({ loading, lista, handleDelete, onItemIdChange, handleModalEditOpen, onItemDescricaoChange, onItemPrecoChange }) {
 
     function capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function handleId(id, preco, descricao) {
+        onItemIdChange(id);
+        onItemDescricaoChange(descricao)
+        onItemPrecoChange(preco)
+        handleModalEditOpen();
     }
 
     return (
@@ -20,7 +27,7 @@ export default function List({ loading, lista, handleDelete, modalEditOpen, hand
                             <div className='text-left justify-left align-left w-[150px] absolute left-10'><p>{capitalizeFirstLetter(item.descricao)}</p></div>
                             <p className='text-right absolute right-20'>R$ {item.preco.toFixed(2)}</p>
                             <div className=''>
-                                <button className='mr-2 hover:scale-110' onClick={() => handleModalEditOpen(item.id)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                                <button className='mr-2 hover:scale-110' onClick={() => handleId(item.id, item.preco, item.descricao)}><FontAwesomeIcon icon={faPenToSquare} /></button>
                                 <button className='mr-2 hover:scale-110' onClick={() => handleDelete(item.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
                             </div>
                         </div>

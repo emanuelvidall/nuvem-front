@@ -4,7 +4,7 @@ import Modal from './components/Modal/index.jsx';
 import ModalEdit from './components/ModalEdit/index.jsx';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 
 
@@ -14,7 +14,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalEditOpen, setModalEditOpen] = useState(false);
-  const [editId, setEditId] = useState<Number>(0);
+  const [itemId, setItemId] = useState(null);
+  const [descricao, setDescricao] = useState('');
+  const [preco, setPreco] = useState(null);
 
   async function handleDelete(id) {
     const response = await fetch(`http://localhost:3000/produtos/${id}`, {
@@ -22,18 +24,21 @@ function App() {
     });
     const data = await response.json();
     console.log(data);
-    toast.success('Item deletado!');
+    Swal.fire({
+      title: 'Produto Deletado!',
+      icon: 'warning',
+      confirmButtonText: 'Cool'
+    })
     setLista((prevLista) => prevLista.filter((item) => item.id !== id));
   }
 
-  async function handleEditProduct(id) {
-
+  async function handleEditProduct() {
     const body = {
       descricao: descricao,
       preco: preco
     };
 
-    fetch(`http://localhost:3000/produtos/edit/${id}`, {
+    fetch(`http://localhost:3000/produtos/edit/${itemId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -43,7 +48,11 @@ function App() {
     })
       .then(response => {
         if (response.ok) {
-          alert(JSON.stringify(body))
+          Swal.fire({
+            title: 'Produto Editado!',
+            icon: 'success',
+            confirmButtonText: 'Cool'
+          })
           getData();
           handleModalEditOpen();
         } else {
@@ -67,12 +76,28 @@ function App() {
     setModalOpen(!modalOpen);
   }
 
-  async function handleModalEditOpen(id) {
+  async function handleModalEditOpen() {
     setModalEditOpen(!modalEditOpen);
   }
 
+  const handleItemIdChange = (newItemId) => {
+    setItemId(newItemId);
+  };
+
+  const handleItemDescricaoChange = (newItemDescricao) => {
+    setDescricao(newItemDescricao);
+  };
+
+  const handleItemPrecoChange = (newItemPreco) => {
+    setPreco(newItemPreco);
+  };
+
+
   useEffect(() => {
-    getData()
+    setItemId(null);
+    setDescricao('');
+    setPreco(null);
+    getData();
     if (modalOpen) {
       handleModalOpen();
     }
@@ -80,8 +105,8 @@ function App() {
 
   return (
     <>
-      <ModalEdit modalEditOpen={modalEditOpen} handleModalEditOpen={(id) =>handleModalEditOpen(id)} getData={getData} />
-      <Modal modalOpen={modalOpen} handleModalOpen={handleModalOpen} getData={getData} handleEditProduct={(id) => handleEditProduct(id)}/>
+      <ModalEdit modalEditOpen={modalEditOpen} handleModalEditOpen={handleModalEditOpen} getData={getData} id={itemId} handleEditProduct={handleEditProduct} descricao={descricao} preco={preco} onItemDescricaoChange={handleItemDescricaoChange} onItemPrecoChange={handleItemPrecoChange} />
+      <Modal modalOpen={modalOpen} handleModalOpen={handleModalOpen} getData={getData} />
       <div className='bg-slate-500 h-screen w-screen items-center justify-center flex flex-col'>
         <h1 className='font-bold text-white text-3xl mb-4 w-[600px] justify-between flex flex-row'>Lista App v1.0 🚀 <button className='' onClick={handleModalOpen}><img className='w-[50px] h-[50px] hover:scale-110 transition ease-in-out delay-150' src='./add.png' alt='addIcon'></img></button></h1>
         <div className='bg-white w-[600px] h-4/6 rounded-md border border-slate-100 drop-shadow-md flex flex-col items-center'>
@@ -94,7 +119,7 @@ function App() {
             <p>Preco</p>
           </div>
           <div className='mt-4 w-5/6 h-5/6 flex flex-col overflow-y-scroll overflow-x-hidden items-center'>
-            <Lista loading={loading} handleDelete={(id) => handleDelete(id)} lista={lista} getData={getData} modalEditOpen={modalEditOpen} handleModalEditOpen={handleModalEditOpen} handleEditProduct={(eid) => handleEditProduct(id)} />
+            <Lista loading={loading} handleDelete={(id) => handleDelete(id)} lista={lista} getData={getData} modalEditOpen={modalEditOpen} handleModalEditOpen={handleModalEditOpen} onItemIdChange={handleItemIdChange} onItemDescricaoChange={handleItemDescricaoChange} onItemPrecoChange={handleItemPrecoChange} />
           </div>
         </div>
         <div className='text-white flex flex-row items-center mt-2 mb-2 justify-evenly w-[600px]'>
