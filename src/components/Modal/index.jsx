@@ -42,8 +42,6 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
             preco: preco
         };
 
-
-
         fetch("http://localhost:3000/produtos/add", {
             method: 'POST',
             headers: {
@@ -57,7 +55,7 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
                         title: 'Produto adicionado com sucesso!',
                         icon: 'success',
                         confirmButtonText: 'Cool'
-                      })
+                    })
                     getData();
                     handleModalOpen();
                 } else {
@@ -80,7 +78,6 @@ export default function Modal({ modalOpen, handleModalOpen, getData }) {
                             <input onChange={handleDescricaoChange} placeholder='Descricao' className='border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
                             <input onChange={handlePrecoChange} placeholder='Preco R$' className='mt-2 border w-[80%] border-slate-200 rounded-md mb-2 p-1'></input>
                             <button onClick={handleAddProduct} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>ADICIONAR</button>
-
                         </div>
                     </div>
                 </div>

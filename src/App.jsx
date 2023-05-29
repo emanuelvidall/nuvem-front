@@ -6,8 +6,6 @@ import './App.css';
 import { ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-
-
 function App() {
 
   const [lista, setLista] = useState([]);
@@ -38,31 +36,31 @@ function App() {
       preco: preco
     };
 
-    fetch(`http://localhost:3000/produtos/edit/${itemId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'no-cors',
-      body: JSON.stringify(body),
-    })
-      .then(response => {
-        if (response.ok) {
-          Swal.fire({
-            title: 'Produto Editado!',
-            icon: 'success',
-            confirmButtonText: 'Cool'
-          })
-          getData();
-          handleModalEditOpen();
-        } else {
-          throw new Error('Error ao adicionar produto');
-        }
-      })
-      .catch(error => {
-        console.log(error);
+    try {
+      const response = await fetch(`http://localhost:3000/produtos/edit/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
       });
+
+      if (response.ok) {
+        Swal.fire({
+          title: 'Produto Editado!',
+          icon: 'success',
+          confirmButtonText: 'Cool'
+        });
+        getData();
+        handleModalEditOpen();
+      } else {
+        throw new Error('Erro ao adicionar produto');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+
 
   async function getData() {
     const response = await fetch("http://localhost:3000/produtos");
@@ -91,7 +89,6 @@ function App() {
   const handleItemPrecoChange = (newItemPreco) => {
     setPreco(newItemPreco);
   };
-
 
   useEffect(() => {
     setItemId(null);

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Swal from 'sweetalert2';
+import 'animate.css';
 
 export default function ModalEdit({ modalEditOpen, handleModalEditOpen, id, handleEditProduct, descricao, preco, onItemDescricaoChange, onItemPrecoChange }) {
 
